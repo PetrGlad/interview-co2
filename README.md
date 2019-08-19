@@ -57,10 +57,10 @@ for interesting period of time.
 
 Format of sensor assumed to be UUID (GUID).
 
-The server can be scaled by setting up several instances 
-and spreading sensors evenly among them.
-I tried to make it work first. For higher loads the code 
-can be optimized by using mutable data structures or Java.
+No performance optimization were attempted, I tried to make it work first.
+The server can be scaled by setting up several instances and spreading
+sensors evenly among them. For higher loads the code 
+can be optimized by using mutable data structures (e.g. ones from `java.util. ...`).
 
 It is not specified if a sensor can send measurements out of 
 order or send duplicates (multiple measurements with same timestamp).
@@ -71,7 +71,12 @@ It is not specified how frequent queries would be - for decent performance
 we'll need an external storage server (PostgreSQL or Cassandra). 
 Since sensors to not depend on each other a key-value storage may suffice.
 But for more complex queries one would want something like PostgreSQL.
-I started with mockup storage for initial implementation.  
+This part has only a stub implementation - one can send events 
+(status changes) to a function with, e.g.
+```
+ (in-ns `co2.core)
+ (flush-statuses! (:events state) println).  
+```
 
 I have never worked with Macs but hopefully Bash and OpenJDK 
 are available. The build requires Leiningen - which is a Bash script.
