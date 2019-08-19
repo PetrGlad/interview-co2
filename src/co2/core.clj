@@ -77,9 +77,7 @@
 (defn json-response [data]
   {:status  200
    :headers {"Content-Type" "application/json; charset=UTF-8"}
-   ; application/json
    :body    (json/write-str data)})
-
 
 (defn landing-page [req]
   {:status  200
@@ -107,7 +105,6 @@
                  (->> (parse-json body)
                       (register-measurement state sensor-id)
                       (json-response)))
-           ; (GET "/metrics" (sensor-metrics (:sensors state) sensor-id)) ;; Not implemented
            (not-found "Resoure is not found.")))
 
 (defonce server (atom nil))
